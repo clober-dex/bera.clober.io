@@ -14,23 +14,16 @@ export async function writeContract(
   if (!walletClient) {
     return
   }
-  const useSimulate = !(process.env.NEXT_PUBLIC_USE_SIMULATE === 'false')
-  if (useSimulate) {
-    const { request } = await publicClient.simulateContract(
-      args as SimulateContractParameters,
-    )
-    const hash = await walletClient.writeContract(request)
-    await publicClient.waitForTransactionReceipt({
-      hash,
-    })
-    return hash
-  } else {
-    const hash = await walletClient.writeContract(
-      args as WriteContractParameters,
-    )
-    await publicClient.waitForTransactionReceipt({
-      hash,
-    })
-    return hash
-  }
+  const gas = await publicClient.estimateContractGas({
+    ...args,
+    account: walletClient.account.address,
+  })
+  const hash = await walletClient.writeContract({
+    ...args,
+    gas,
+  })
+  await publicClient.waitForTransactionReceipt({
+    hash,
+  })
+  return hash
 }

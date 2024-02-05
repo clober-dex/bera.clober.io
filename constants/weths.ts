@@ -5,4 +5,5 @@ export const WrappedEthers = [
   '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1', // arbitrum
   '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1', // polygon zkevm
   '0x4284186b053ACdBA28E8B26E99475d891533086a',
+  '0x5806E416dA447b267cEA759358cF22Cc41FAE80F', // bera testnet
 ].map((x) => getAddress(x))
