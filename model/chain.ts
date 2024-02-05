@@ -8,6 +8,7 @@ export type Chain = WagmiChain & {
 
 export const toWagmiChain = (chain: Chain): WagmiChain => {
   return {
+    network: chain.network,
     id: chain.id,
     name: chain.name,
     nativeCurrency: chain.nativeCurrency,
